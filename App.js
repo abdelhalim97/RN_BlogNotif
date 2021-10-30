@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, ImageBackground } from 'react-native';
 import { store } from './store';
 import {LogIn,Register} from './auth/';
 import {Provider} from "react-redux";
@@ -10,7 +9,6 @@ import {useFonts} from 'expo-font'
 import AppLoading from 'expo-app-loading'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BackGround from './app/BackGround';
 
 const image ={uri:"https://images.unsplash.com/photo-1518976024611-28bf4b48222e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=385&q=80"}
 export default function App() {
@@ -42,7 +40,7 @@ const Stack = createNativeStackNavigator();
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown:false }}/>
-          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown:false }}/>
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

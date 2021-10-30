@@ -8,7 +8,7 @@ function LabelInput(props) {
             <Text>{props.label}</Text>
             <View style={{flexDirection: 'row'}}>
                 <FontAwesomeIcon icon={ props.icon } size={ props.iconS } 
-                style={{position:"absolute",left:"92%"}}/>
+                style={{position:"absolute",left:"92%",color:"purple"}}/>
                 <TextInput placeholder={props.placeH} style={{color:"#000",flex:1}}>
                 </TextInput>
             </View>
