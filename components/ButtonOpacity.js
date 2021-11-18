@@ -1,17 +1,19 @@
 import React from 'react'
 import { View, Text,TouchableOpacity,StyleSheet } from 'react-native'
 
-export default function ButtonOpacity(props) {
+ const ButtonOpacity=(props)=> {
     return (
-            <View>
+            // <View>
                 <TouchableOpacity
-                onPress={()=> {alert('You tapped the button!')}}
+                activeOpacity={0.65}
+                onPress={props.fnc}
                 style={styles.btt}>
                     <Text style={{ color:"#FFF",padding:6 }}>{props.name}</Text>
                 </TouchableOpacity>
-            </View>               
+            //  </View>               
     )
 }
+export default ButtonOpacity;
 const styles = StyleSheet.create({
     btt:{
         backgroundColor:"#3A2298",
@@ -19,9 +21,7 @@ const styles = StyleSheet.create({
         elevation:15,
         borderWidth: 1,
         borderColor:"#3A2298",
-        borderBottomLeftRadius:28,
-        borderBottomRightRadius:28,
-        borderTopLeftRadius:28,
-        borderTopRightRadius:28,
+        borderRadius:28,
+        
       },
   });

@@ -3,13 +3,16 @@ import {  Text, View,TextInput  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 function LabelInput(props) {
+
     return (
         <View >
             <Text>{props.label}</Text>
             <View style={{flexDirection: 'row'}}>
                 <FontAwesomeIcon icon={ props.icon } size={ props.iconS } 
-                style={{position:"absolute",left:"92%",color:"purple"}}/>
-                <TextInput placeholder={props.placeH} style={{color:"#000",flex:1}}>
+                style={{position:"absolute",left:"92%",color:"#3A2298"}}/>
+                <TextInput placeholder={props.placeH} style={{color:"#000",flex:1}}
+                maxLength={300} secureTextEntry={props.pass}
+                {...props}>
                 </TextInput>
             </View>
         </View>

@@ -1,8 +1,8 @@
-import Header from "./Header";
+import HeaderCustom from "./HeaderCustom";
 import BarReset from "./BarReset";
 import BackGround from "./BackGround";
 export{
-    Header,
+    HeaderCustom,
     BarReset,
     BackGround
 }
