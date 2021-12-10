@@ -1,8 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import navReducer from "./slices/navSlice";
-export const store = configureStore({
+import counterReducer from './slices/CounterSlices';
+import counterReducerTag from './slices/counterSlicesPosts';
+
+const store = configureStore({
   reducer: {
-      nav:navReducer,
+      counter:counterReducer,
+      counterTag:counterReducerTag,
+
   },
 
 });
+export default store

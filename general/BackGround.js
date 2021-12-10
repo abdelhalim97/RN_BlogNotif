@@ -6,7 +6,7 @@ const image ={uri:"https://images.unsplash.com/photo-1518976024611-28bf4b48222e?
 
     return (
     <ImageBackground source={image} resizeMode="cover" style={{width: '100%',height:'100%' }}>
-      <View style={{backgroundColor: "#3A2298",opacity:0.86,width: '100%',height:'100%'}}></View>
+      <View style={{backgroundColor: "#dedace",opacity:0.86,width: '100%',height:'100%'}}></View>
     </ImageBackground>
     )
 }

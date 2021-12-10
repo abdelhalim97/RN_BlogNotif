@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { store } from './store';
-import { StackNavigator } from './components';
+import  store  from './store';
+import StackNavigator from "./StackNavigator"
 import {Provider} from "react-redux";
 import {setCustomText,setCustomTextInput} from 'react-native-global-props';
 import { BalsamiqSans_400Regular,BalsamiqSans_400Regular_Italic,BalsamiqSans_700Bold,BalsamiqSans_700Bold_Italic} from '@expo-google-fonts/balsamiq-sans'
@@ -21,6 +21,7 @@ const customTextInputProps = {
     borderBottomWidth: 1,
     borderColor: 'gray',
     paddingVertical: 5,
+    fontSize:20,
   }
 };
   const customTextProps = {

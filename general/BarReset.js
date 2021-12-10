@@ -1,13 +1,12 @@
-import { Platform,StyleSheet, StatusBar, View,SafeAreaView } from 'react-native';
+import { StyleSheet, StatusBar, View,SafeAreaView,Platform } from 'react-native';
 import React from 'react'
 
 function BarReset() {
-    return (
-        // <>
-        //     {Platform.OS === 'ios' && <SafeAreaView></SafeAreaView>}
-        //     {Platform.OS === 'android' && <View style={styles.reset}></View>}
-        // </>
-        <View style={styles.reset}></View>
+    return (<>
+        {Platform.OS !== 'ios'?<View style={styles.reset}></View>:
+        <SafeAreaView></SafeAreaView>
+        }
+        </>
     )
 }
 const styles = StyleSheet.create({

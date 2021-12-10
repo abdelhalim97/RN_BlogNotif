@@ -3,7 +3,7 @@ import {  Text,TouchableOpacity } from 'react-native'
 
 export default function CustomTag(props) {
     return (
-        <TouchableOpacity onPress={()=>props.fnc()} activeOpacity={props.act?0.65:0.2 }>
+        <TouchableOpacity onPress={()=>props.fnc()} activeOpacity={0.75 }>
             <Text
             style={props.styleP}>{props.title}
             </Text>

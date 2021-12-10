@@ -3,12 +3,16 @@ import LabelInput from "./LabelInput";
 import CustomTag from "./CustomTag";
 import FontAwesomeIconOpacity from "./FontAwesomeIconOpacity";
 import CheckTag from "./CheckTag";
-import StackNavigator from "./StackNavigator";
+import Posts from "./Posts";
+import DatePickerCustom from "./DatePickerCustom";
+import  CustomSwitch  from "./CustomSwitch";
 export{
     ButtonOpacity,
 LabelInput,
 CustomTag,
 FontAwesomeIconOpacity,
 CheckTag,
-StackNavigator,
+Posts,
+DatePickerCustom,
+CustomSwitch
 }

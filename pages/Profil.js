@@ -1,10 +1,67 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image,StyleSheet } from 'react-native'
+import { BarReset,BackGround } from '../general'
+import { useDispatch,useSelector } from 'react-redux'
+import {setUserRedux} from "../slices/CounterSlices"
+import { FontAwesomeIconOpacity } from '../components'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { auth } from '../firebase'
+import { signOut } from '@firebase/auth'
+import { useNavigation } from '@react-navigation/core';
 
 export default function Profil() {
+    const navigation=useNavigation();
+    const imageGoogle ={uri:"https://firebasestorage.googleapis.com/v0/b/rnblog-d20d4.appspot.com/o/images%2Fimage404.png?alt=media&token=6b03e815-306f-4cd2-97f3-1a54d999879c"}
+    const dispatch = useDispatch()
+    const counter = useSelector(state=>state?.counter)
+    const logout=async ()=>{
+        await signOut(auth)
+        dispatch(setUserRedux(
+            {email:null,
+            displayName:null,
+            image:null,
+            gAuth:false}
+        ))
+        navigation.navigate("LogIn");
+    }
+    const name= counter?.value?.displayName
+    const email = counter?.value?.email
     return (
-        <View>
-            <Text>profil</Text>
-        </View>
+        <>
+            <BackGround></BackGround>
+            <View style={styles.constainer}>
+                <BarReset></BarReset>
+                <View style={{ backgroundColor:"#FFF",width:"100%",alignItems:"center",paddingHorizontal:15 }}>
+                    {counter?.value?.gAuth?
+                    <Image source={{ uri:counter?.value?.image }} resizeMode="cover" style={styles.img}></Image>
+                    :<Image source={imageGoogle} resizeMode="cover" style={styles.img}></Image>}
+                    {/* {textArray.map((data)=>
+                        <LabelInput key={data.id} label={data.label} icon={data.icon} 
+                        iconS={20} pass={false} placeH={data.placeH} value={data.value}
+                        onChangeText={text => data.id===1?setName(text):
+                            data.id===2?setEmail(text):setPass(text)}
+                        ></LabelInput>
+                    )} */}
+                    {name&&<Text>{name}</Text>}
+                    {email&&<Text>{email}</Text>}
+                    <View style={{ alignItems:"flex-end",width:"100%",marginBottom:17 }}>
+                        <FontAwesomeIconOpacity s={32} fnc={()=>{logout()}} icon={faSignOutAlt}
+                        style={styles.footerIcon} c="#5c1573"></FontAwesomeIconOpacity>
+                    </View>
+                </View>
+            </View>
+        </>
     )
 }
+const styles = StyleSheet.create({
+    constainer:{
+        flex:1,position:"absolute",width:"100%",height:"100%"
+    },
+    img: {
+        height:100,width:100,borderWidth:1,borderColor:"#FFF",borderRadius:50,marginTop:20
+    },
+    footerIcon:{
+        backgroundColor:"#FFF",padding:8,borderWidth:1,borderColor:"#E2D5CC",borderRadius:25,
+        marginHorizontal:7
+    },
+  });

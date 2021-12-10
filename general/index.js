@@ -4,5 +4,5 @@ import BackGround from "./BackGround";
 export{
     HeaderCustom,
     BarReset,
-    BackGround
+    BackGround,
 }
