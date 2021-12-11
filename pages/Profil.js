@@ -32,9 +32,7 @@ export default function Profil() {
             <View style={styles.constainer}>
                 <BarReset></BarReset>
                 <View style={{ backgroundColor:"#FFF",width:"100%",alignItems:"center",paddingHorizontal:15 }}>
-                    {counter?.value?.gAuth?
                     <Image source={{ uri:counter?.value?.image }} resizeMode="cover" style={styles.img}></Image>
-                    :<Image source={imageGoogle} resizeMode="cover" style={styles.img}></Image>}
                     {/* {textArray.map((data)=>
                         <LabelInput key={data.id} label={data.label} icon={data.icon} 
                         iconS={20} pass={false} placeH={data.placeH} value={data.value}

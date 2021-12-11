@@ -3,12 +3,11 @@ import { View, Text,StyleSheet,ImageBackground,KeyboardAvoidingView } from 'reac
 import {BarReset,HeaderCustom} from '../general'
 import { LabelInput,ButtonOpacity } from '../components'
 import { useNavigation } from '@react-navigation/core';
-import { createUserWithEmailAndPassword } from '@firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth'
 import {auth} from "../firebase"
 import { useDispatch } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import GoogleAuth from './GoogleAuth'
-import firebase from 'firebase';
 
 export default function Register() {
     const image ={uri:"https://images.unsplash.com/photo-1518976024611-28bf4b48222e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=385&q=80"}
@@ -19,34 +18,19 @@ export default function Register() {
     const [registerDisplayName, setDisplayName] = useState("")
     const [registerImageURL, setImageURL] = useState("")
     const navigation=useNavigation();
-    // const register =  ()=>{
-    //     auth
-    //     .createUserWithEmailAndPassword(registerEmail,registerPassword)
-    //     .then((authUser)=>{
-    //         authUser.user.updateProfile({
-    //             displayName: registerDisplayName,
-    //             photoURL:imageUser||registerImageURL
-    //         });
-    //         // dispatch(setUserRedux({
-    //         //     email:registerEmail,
-    //         //     pass:registerPassword,
-    //         //     displayName: registerDisplayName,
-    //         //     image:registerImageURL.trim().length>0?registerImageURL:imageUser,
-    //         // }))
-    //         // navigation.navigate("Accueil")
-    //     })
-    //     .catch((error)=>alert(error.message))
-    // }
     const register = async ()=>{
         try {
-        const user = await createUserWithEmailAndPassword(auth,registerEmail,registerPassword)
-        await firebase.auth().currentUser.updateProfile({
-            displayName: registerDisplayName,
-            photoURL: "",
-          });
+        const {user} = await createUserWithEmailAndPassword(auth,registerEmail,registerPassword)
+        await updateProfile(user, {
+            'displayName': registerDisplayName,
+            'photoURL': registerImageURL.trim().length===0?imageUser:registerImageURL
+        })
         dispatch(setUserRedux({
             email:registerEmail,
-            pass:registerPassword}))
+            pass:registerPassword,
+            displayName:registerDisplayName,
+            image:registerImageURL.trim().length===0?imageUser:registerImageURL,
+        }))
         navigation.navigate("Accueil")
         } catch (error) {
             console.log(error)

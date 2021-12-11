@@ -17,10 +17,12 @@ function LogIn() {
   const navigation=useNavigation();
   const login = async()=>{
     try {
-      const user =await signInWithEmailAndPassword(auth,email,password)
+      const {user} =await signInWithEmailAndPassword(auth,email,password)
       dispatch(setUserRedux({
         email,
-        pass:password
+        pass:password,
+        displayName:user.displayName,
+        image:user.photoURL,
       }))
       navigation.navigate("Accueil");
     } catch (error) {
@@ -30,7 +32,7 @@ function LogIn() {
   const btn =[
     {
         id:1,
-        name:"E-mail",
+        name:"LogIn",
         fnc:login,
     },
 ]
@@ -62,7 +64,6 @@ function LogIn() {
         <HeaderCustom></HeaderCustom>
             <KeyboardAvoidingView keyboardVerticalOffset={-433}
             behavior={ "position"}
-            // behavior={Platform.OS === "ios" ? "padding" : "position"}
              contentContainerStyle={styles.LogIn}>
               <Text style={{ color:"#41928D",alignItems:"center",fontSize:28 }}>Connexion</Text>
               <View style={{ alignItems:"center",marginTop:14 }}>
