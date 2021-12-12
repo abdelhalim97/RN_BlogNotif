@@ -28,6 +28,7 @@ export default function CreatePost() {
             email:counter.value.email,
             displayName:counter?.value?.displayName,
             tags:tags,
+            img:counter?.value?.image,
         })
     }
     const label=[
@@ -104,7 +105,8 @@ export default function CreatePost() {
                     )}
                     <View style={{ justifyContent:"space-around",marginVertical:25,flexDirection: "row"}}>
                         <ButtonOpacity fnc={()=>{handleTags();createPost();handleRedirectionAccueil()}}  name="Create Post"
-                        disabled={title.trim().length>0 && body.trim().length>0? false:true}>
+                        disabled={title.trim().length>0 && body.trim().length>0? false:true}
+                        >
                             </ButtonOpacity>                        
                     </View> 
                 </View>

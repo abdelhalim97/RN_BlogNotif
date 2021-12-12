@@ -10,17 +10,15 @@ import {auth} from "../firebase"
 import { useDispatch } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import { db } from '../firebase'
-import {collection,getDocs} from "firebase/firestore"
+import {collection,getDocs, onSnapshot} from "firebase/firestore"
 import {Posts} from "../components"
 export default function NotifPage() {
     const [posts, setPosts] = useState([])
     const postsCollectionRef = collection(db,"tasks")
     useEffect(() => {
-        const getPosts= async ()=>{
-            const data = await getDocs(postsCollectionRef)
-            setPosts(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
-        }
-        getPosts()
+        onSnapshot(postsCollectionRef,(snapshot)=>(
+            setPosts(snapshot.docs.map((doc)=>doc.data()))
+        ))
     }, [])
     const dispatch = useDispatch()
     const navigation=useNavigation();

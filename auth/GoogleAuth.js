@@ -6,13 +6,14 @@ import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/core';
 import * as Google from "expo-google-app-auth";
 import { setUserRedux } from '../slices/CounterSlices';
+import env from '../env';
 const GoogleAuth = () => {
 const imageGoogle ={uri:"https://img.icons8.com/color/96/000000/google-logo.png"};
 const navigation=useNavigation()
 const dispatch = useDispatch()
     const config={
-        iosClientId:"940240129086-9kk3n8ub8m42hv9mdo4lpijdndhdkmkg.apps.googleusercontent.com",
-        androidClientId:"940240129086-2elcijmr43u6pnd0dhnkv2atgr7fjh7l.apps.googleusercontent.com",
+        iosClientId:env.IOS_CLIENT_ID,
+        androidClientId:env.ANDROID_CLIENT_ID,
         scopes:["profile","email"],
         permissions:["public_profile","email","gender","location"]
       }

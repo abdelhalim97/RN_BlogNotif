@@ -30,7 +30,7 @@ import { db } from '../firebase'
             displayName:counter?.value?.displayName,
             endDateS:d,
             body:props.body,
-            img: counter?.value?.gAuth ? counter?.value?.image :"https://firebasestorage.googleapis.com/v0/b/alerte-moi.appspot.com/o/images%2Fimage404.png?alt=media&token=85b01af4-5836-4a4e-baf0-7fc7620574cc"
+            img:  counter?.value?.image
         })
     }
   const minTime =new Date();

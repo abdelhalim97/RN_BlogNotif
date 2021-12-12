@@ -10,18 +10,15 @@ import {auth} from "../firebase"
 import { useDispatch } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import { db } from '../firebase'
-import {collection,getDocs} from "firebase/firestore"
+import {collection, onSnapshot} from "firebase/firestore"
 
 export default function Accueil() {
     const [posts, setPosts] = useState([])
     const [customTag, setCustomTag] = useState("Front-End")
     const postsCollectionRef = collection(db,"posts")
     useEffect(() => {
-        const getPosts= async ()=>{
-            const data = await getDocs(postsCollectionRef)
-            setPosts(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
-        }
-        getPosts()
+        onSnapshot(postsCollectionRef,(snapshot)=>
+        setPosts(snapshot.docs.map((doc)=>doc.data())))
     }, [])
     const dispatch = useDispatch()
     const navigation=useNavigation();
@@ -36,7 +33,6 @@ export default function Accueil() {
     const handleCustomTag=param=>()=>{
         setCustomTag(param)
     }
-    console.log(posts.map(d=>d.tags))
     const DataTag=[
         {
             id:1,
@@ -86,7 +82,7 @@ export default function Accueil() {
                         style={styles.footerIcon} c="#FFF" s={32}>
                         </FontAwesomeIconOpacity>
                     </View>
-                    <View style={{ flex:0.155,marginTop:20 }}>
+                    <View style={{ flex:0.08,marginTop:20 }}>
                         <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
                             {
                                 DataTag.map((data)=>
@@ -96,7 +92,7 @@ export default function Accueil() {
                             }
                         </ScrollView>
                     </View>
-                    
+                    <View style={{ flex:1 }}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {posts.map((post)=>
                             post.tags.includes(customTag)?<Posts key={post.uid} paragraph={post.body} email={post.email}
@@ -104,6 +100,8 @@ export default function Accueil() {
                             title={post.title}></Posts>:<></>
                         )}
                     </ScrollView>
+                    </View>
+                    
                     <View style={{ flexDirection:"row",justifyContent:"space-between",paddingTop:5}}>
                         <TouchableOpacity style={styles.createPost}
                         onPress={() => navigation.navigate("CreatePost")} activeOpacity={0.65}>                             
