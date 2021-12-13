@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import { View, Text,StyleSheet,ImageBackground,KeyboardAvoidingView } from 'react-native'
 import {BarReset,HeaderCustom} from '../general'
 import { LabelInput,ButtonOpacity } from '../components'
+import {TakePhotoComponent} from '../components/API/ImagePickerComponent'
+import { pickImage } from '../components/API/ImagePickerComponent'
 import { useNavigation } from '@react-navigation/core';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth'
 import {auth} from "../firebase"
@@ -39,8 +41,18 @@ export default function Register() {
     const btn =[
         {
             id:1,
-            name:"S'inscrire",
+            fnc:pickImage,
+            name:"Pick a Photo(Option)"
+        },
+        {
+            id:2,
+            fnc:TakePhotoComponent,
+            name:"Take a Photo(Option)"
+        },
+        {
+            id:3,
             fnc:register,
+            name:"SignUp"
         },
     ]
     const data =[
@@ -63,12 +75,12 @@ export default function Register() {
           pass:true,
           value:registerPassword,
         },
-        {
-            id:4,
-            label:"Image de Profile(Option)",
-            pass:false,
-            value:registerImageURL,
-          },
+        // {
+        //     id:4,
+        //     label:"Image de Profile(Option)",
+        //     pass:false,
+        //     value:registerImageURL,
+        //   },
       ]
     return (
         <ImageBackground source={image} resizeMode="cover" style={{height:'100%' }}>
@@ -79,33 +91,26 @@ export default function Register() {
                 <KeyboardAvoidingView keyboardVerticalOffset={-270}
                 behavior={ "position"}
                 contentContainerStyle={styles.LogIn}>
-                    <View style={{ justifyContent:"flex-start",flexDirection:"row" }}>
-                        <Text style={{ color:"#41928D",alignItems:"center",paddingLeft:5,fontSize:28 }}>S'inscrire</Text>
-                    </View>
-                    <View style={{ alignItems:"center",marginTop:14 }}>
+                    <Text style={{ color:"#41928D",alignSelf:"flex-start",fontSize:28 }}>S'inscrire</Text>
+                    <View style={{ marginTop:10 }}>
                         <GoogleAuth></GoogleAuth>
                     </View>
-                    <View style={{ marginTop:20 }}>
                     {
                         data.map((d)=>
-                        <LabelInput key={d.id} icon={d.icon} placeH={d.placeH} label={d.label}
-                        iconS={d.iconS} pass={d.pass} value={d.value}
+                        <LabelInput key={d.id} label={d.label} pass={d.pass} value={d.value}
                         onChangeText={text => d.id===1?setDisplayName(text):
-                        d.id===2?setRegisterEmail(text):
-                        d.id===3?setRegisterPassword(text):
-                        setImageURL(text)}>
+                        d.id===2?setRegisterEmail(text):setRegisterPassword(text)}>
                         </LabelInput>)
-                    }
-                    </View>
-                    <View style={{ justifyContent:"space-around",marginTop:25,flexDirection: "row"}}>
-                    {
-                        btn.map((data)=>
-                        <ButtonOpacity key={data.id} fnc={data.fnc} name={data.name}
-                        disabled={registerEmail.trim().length>0 &&
-                            registerPassword.trim().length>0&&
-                            registerDisplayName.trim().length>0?false:true}></ButtonOpacity>)
-                    }
-                    </View>
+                    }   
+                        {btn.map((data)=>
+                        <View style={{ marginTop:13,width:"95%",alignItems:"center" }}>
+                            <ButtonOpacity key={data.id} fnc={data.fnc} name={data.name}
+                            disabled={registerEmail.trim().length>0 &&
+                                registerPassword.trim().length>0&&
+                                registerDisplayName.trim().length>0&&data.id===3?false:true}
+                            ></ButtonOpacity>
+                        </View>     
+                        ) }
                 </KeyboardAvoidingView>
             </View>
         </ImageBackground>
@@ -113,14 +118,13 @@ export default function Register() {
 }
 const styles = StyleSheet.create({
     LogIn: {
+        alignItems:"center",
         backgroundColor:"#FFF",
         marginTop:70,
         paddingLeft:25,
         paddingRight:25,
-        borderWidth: 1,
-        borderColor:"#FFF",
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
-        height: "100%"
+        height: "100%",
     },
   });

@@ -14,5 +14,5 @@ FontAwesomeIconOpacity,
 CheckTag,
 Posts,
 DatePickerCustom,
-CustomSwitch
+CustomSwitch,
 }

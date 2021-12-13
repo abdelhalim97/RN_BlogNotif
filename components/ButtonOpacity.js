@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor:"#43948E",
         borderRadius:28,
-        width:"100%"
+        width:"90%"
+        // flex:1
       },
   });
