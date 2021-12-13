@@ -10,7 +10,7 @@ import {auth} from "../firebase"
 import { useDispatch } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import { db } from '../firebase'
-import {collection,getDocs, onSnapshot} from "firebase/firestore"
+import {collection, onSnapshot} from "firebase/firestore"
 import {Posts} from "../components"
 export default function NotifPage() {
     const [posts, setPosts] = useState([])

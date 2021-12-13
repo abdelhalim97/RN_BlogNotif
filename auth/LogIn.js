@@ -78,26 +78,25 @@ function LogIn() {
                 onChangeText={text => d.id===1?setEmail(text):setPassword(text)}>
                 </LabelInput>)
                 }
-                </View>
-                <View style={{ justifyContent:"center",marginTop:23,flexDirection: "row"}}>
+              </View>
+              <View style={{ justifyContent:"center",marginTop:23,flexDirection: "row"}}>
                 {
                 btn.map((data)=>
                 <ButtonOpacity key={data.id} fnc={data.fnc} name={data.name}></ButtonOpacity>)
                 }
               </View>
               <View style={{ flexDirection:"row",marginTop:10 }}>
-              <TouchableHighlight disabled>
-              <Text style={{ color:"gray",fontSize:14 }}>vous n'avez pas encore de compte?
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor="#E3E3E3"
-                onPress={()=> {navigation.navigate("Register")}}>
-                  <Text style={{ color:"#41928D",fontSize:14 }}> S'inscrire</Text>
+                <TouchableHighlight disabled>
+                  <Text style={{ color:"gray",fontSize:14 }}>vous n'avez pas encore de compte?</Text>
                 </TouchableHighlight>
                 <TouchableHighlight underlayColor="#E3E3E3"
+                  onPress={()=> {navigation.navigate("Register")}}>
+                    <Text style={{ color:"#41928D",fontSize:14 }}> S'inscrire</Text>
+                  </TouchableHighlight>
+                {/* <TouchableHighlight underlayColor="#E3E3E3"
                 onPress={()=> {navigation.navigate("Accueil")}}>
                   <Text style={{ color:"#41928D",fontSize:14 }}> test mode</Text>
-                </TouchableHighlight>
+                </TouchableHighlight> */}
               </View>
             </KeyboardAvoidingView>
         </View>

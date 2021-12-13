@@ -11,7 +11,6 @@ import { useNavigation } from '@react-navigation/core';
 
 export default function Profil() {
     const navigation=useNavigation();
-    const imageGoogle ={uri:"https://firebasestorage.googleapis.com/v0/b/rnblog-d20d4.appspot.com/o/images%2Fimage404.png?alt=media&token=6b03e815-306f-4cd2-97f3-1a54d999879c"}
     const dispatch = useDispatch()
     const counter = useSelector(state=>state?.counter)
     const logout=async ()=>{
