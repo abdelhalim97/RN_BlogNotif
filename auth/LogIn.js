@@ -75,7 +75,8 @@ function LogIn() {
                 data.map((d)=>
                 <LabelInput key={d.id} icon={d.icon} placeH={d.placeH} label={d.label} 
                 iconS={d.iconS} pass={d.type} value={d.value}
-                onChangeText={text => d.id===1?setEmail(text):setPassword(text)}>
+                onChangeText={text => d.id===1?setEmail(text):setPassword(text)}
+                keyboardType={d.id===1?"email-address":"default"}>
                 </LabelInput>)
                 }
               </View>
@@ -87,11 +88,11 @@ function LogIn() {
               </View>
               <View style={{ flexDirection:"row",marginTop:10 }}>
                 <TouchableHighlight disabled>
-                  <Text style={{ color:"gray",fontSize:14 }}>vous n'avez pas encore de compte?</Text>
+                  <Text style={{ color:"gray",fontSize:14 }}>You Don't Have an Account Yet</Text>
                 </TouchableHighlight>
                 <TouchableHighlight underlayColor="#E3E3E3"
                   onPress={()=> {navigation.navigate("Register")}}>
-                    <Text style={{ color:"#41928D",fontSize:14 }}> S'inscrire</Text>
+                    <Text style={{ color:"#41928D",fontSize:14 }}> SignUp</Text>
                   </TouchableHighlight>
                 {/* <TouchableHighlight underlayColor="#E3E3E3"
                 onPress={()=> {navigation.navigate("Accueil")}}>

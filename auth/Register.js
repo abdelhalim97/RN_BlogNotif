@@ -13,7 +13,7 @@ import GoogleAuth from './GoogleAuth'
 export default function Register() {
     const img404 = "https://firebasestorage.googleapis.com/v0/b/rnblog-d20d4.appspot.com/o/images%2F404.png?alt=media&token=2188db36-cb25-4fbc-a7e2-eda5eeacbc23"
     const image ={uri:"https://images.unsplash.com/photo-1518976024611-28bf4b48222e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=385&q=80"}
-    const imageUser ={uri:"https://firebasestorage.googleapis.com/v0/b/rnblog-d20d4.appspot.com/o/images%2Fimage404.png?alt=media&token=6b03e815-306f-4cd2-97f3-1a54d999879c"}
+    const imageUser ="https://firebasestorage.googleapis.com/v0/b/rnblog-d20d4.appspot.com/o/images%2Fimage404.png?alt=media&token=6b03e815-306f-4cd2-97f3-1a54d999879c"
     const dispatch = useDispatch()
     const [registerEmail, setRegisterEmail] = useState("")
     const [registerPassword, setRegisterPassword] = useState("")
@@ -48,7 +48,7 @@ export default function Register() {
     const data =[
         {
             id:1,
-            label:"Nom",
+            label:"Name",
             pass:false,
             value:registerDisplayName,
           },
@@ -61,7 +61,7 @@ export default function Register() {
         
         {
           id:3,
-          label:"Mot de passe",
+          label:"Password",
           pass:true,
           value:registerPassword,
         },
@@ -75,7 +75,7 @@ export default function Register() {
                 <KeyboardAvoidingView keyboardVerticalOffset={-270}
                 behavior={ "position"}
                 contentContainerStyle={styles.LogIn}>
-                    <Text style={{ color:"#41928D",alignSelf:"flex-start",fontSize:28 }}>S'inscrire</Text>
+                    <Text style={{ color:"#41928D",alignSelf:"flex-start",fontSize:28 }}>SignUp</Text>
                     <View style={{ marginTop:10 }}>
                         <GoogleAuth></GoogleAuth>
                     </View>
@@ -83,7 +83,8 @@ export default function Register() {
                         data.map((d)=>
                         <LabelInput key={d.id} label={d.label} pass={d.pass} value={d.value}
                         onChangeText={text => d.id===1?setDisplayName(text):
-                        d.id===2?setRegisterEmail(text):setRegisterPassword(text)}>
+                        d.id===2?setRegisterEmail(text):setRegisterPassword(text)}
+                        keyboardType={d.id===2?"email-address":"default"}>
                         </LabelInput>)
                     }
                     <View style={{ flexDirection:"row",marginVertical:18 }}>

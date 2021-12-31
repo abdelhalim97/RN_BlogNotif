@@ -16,10 +16,7 @@ export default function Profil() {
     const logout=async ()=>{
         await signOut(auth)
         dispatch(setUserRedux(
-            {email:null,
-            displayName:null,
-            image:null,
-            gAuth:false}
+            null
         ))
         navigation.navigate("LogIn");
     }

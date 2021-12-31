@@ -7,19 +7,19 @@ import { useNavigation } from '@react-navigation/core';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { signOut } from '@firebase/auth'
 import {auth} from "../firebase"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import { db } from '../firebase'
-import {collection, onSnapshot} from "firebase/firestore"
-import {Posts} from "../components"
+import {collection, doc, onSnapshot} from "firebase/firestore"
+import {Notifs} from "../components"
 export default function NotifPage() {
     const [posts, setPosts] = useState([])
     const postsCollectionRef = collection(db,"tasks")
     useEffect(() => {
         onSnapshot(postsCollectionRef,(snapshot)=>(
-            setPosts(snapshot.docs.map((doc)=>doc.data()))
+            setPosts(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
         ))
-    }, [])
+    }, []);
     const dispatch = useDispatch()
     const navigation=useNavigation();
     const handleRedirectionProfil=()=>{
@@ -30,6 +30,7 @@ export default function NotifPage() {
         dispatch(setUserRedux(null))
         navigation.navigate("LogIn");
     }
+    const counter = useSelector(state => state.counter)
     return (
         <>
             <BackGround></BackGround>
@@ -40,30 +41,28 @@ export default function NotifPage() {
                     <FontAwesomeIconOpacity fnc={()=>{navigation.navigate("Accueil")}} icon={faBlog}
                     style={styles.footerIcon} c="#FFF" s={32}>
                     </FontAwesomeIconOpacity>
-                    <Text>Liste des Alertes</Text>
+                    <Text>Notification List</Text>
                     <FontAwesomeIconOpacity fnc={handleRedirectionProfil} icon={faUser}
                     style={styles.footerIcon} c="#FFF" s={32}>
                     </FontAwesomeIconOpacity>
                 </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {posts.map((post)=>
-                            <Posts key={post.uid} paragraph={post.body} email={post.email}
-                            displayName={post.displayName} 
-                            img={post.img}
-                            endDate={post.endDateS}
-                            title={post.title}></Posts>
+                            post.email===counter?.value?.email&&<Notifs key={post.id} id={post.id} 
+                            paragraph={post.body} email={post.email}
+                            displayName={post.displayName} img={post.img} endDate={post.endDateS}
+                            title={post.title}></Notifs>
                         )}
                     </ScrollView>
                     <View style={{ flexDirection:"row",justifyContent:"space-between",paddingTop:5}}>
                         <TouchableOpacity style={styles.createPost}
                         onPress={() => navigation.navigate("CreateAlerte")} activeOpacity={0.65}>                             
                             <Text style={{ color:"#FFF",padding:5 }}>
-                                <FontAwesomeIcon icon={faPlus} style={{color:"#FFF"}}/> Créer une Alerte
+                                <FontAwesomeIcon icon={faPlus} style={{color:"#FFF"}}/> Create Notification
                             </Text>
                         </TouchableOpacity>
                         <FontAwesomeIconOpacity s={32} fnc={()=>{logout()}} icon={faSignOutAlt}
-                        style={styles.footerIcon}
-                        c="#FFF"></FontAwesomeIconOpacity>
+                        style={styles.footerIcon} c="#FFF"></FontAwesomeIconOpacity>
                     </View>
                 </View>
             </View>

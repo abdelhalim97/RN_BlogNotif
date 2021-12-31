@@ -11,7 +11,7 @@ export default function CreateAlerte() {
     const label=[
         {
             id:1,
-            label:"Titre d'alerte",
+            label:"Notification Title",
             pass:false,
             value:title,
         },
@@ -29,7 +29,7 @@ export default function CreateAlerte() {
                 <BarReset></BarReset>
                 <View style={{ paddingHorizontal:"25%",backgroundColor:"#FFF" }}>
                     <View style={styles.header}>
-                        <Text style={{ color:"#585859",textAlign:"center" }}>Créer une nouvelle alerte</Text>
+                        <Text style={{ color:"#585859",textAlign:"center" }}>Create new Notification</Text>
                     </View>
                 </View>
                 <View style={styles.view}>
@@ -38,11 +38,11 @@ export default function CreateAlerte() {
                         <LabelInput key={data.id} icon={data.icon} 
                         label={data.label}  pass={data.pass} value={data.value} 
                         onChangeText={text=>data.id===1?setTitle(text):setBody(text)} id={data.id}
-                        ></LabelInput>)
+                        multiline={data.id===1?false:true}></LabelInput>)
                     }<View style={{ marginBottom:25 }}>
                     <DatePickerCustom setDate={setDate} date={date}></DatePickerCustom>
                     <Text style={{ textAlign:"center",fontSize:17,marginTop:10 }}>
-                        Remarque : la notification n'apparaîtra que si l'application est fermée ou s'exécute en arrière-plan 
+                    Note: The notification will only appear if the app is closed or running in the background
                     </Text>
                     <ExpoNotif title={title} body={body} date={date}></ExpoNotif>
                     </View>

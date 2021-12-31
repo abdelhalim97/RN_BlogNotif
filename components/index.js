@@ -6,6 +6,7 @@ import CheckTag from "./CheckTag";
 import Posts from "./Posts";
 import DatePickerCustom from "./DatePickerCustom";
 import  CustomSwitch  from "./CustomSwitch";
+import Notifs from "./Notifs";
 export{
     ButtonOpacity,
 LabelInput,
@@ -15,4 +16,5 @@ CheckTag,
 Posts,
 DatePickerCustom,
 CustomSwitch,
+Notifs
 }

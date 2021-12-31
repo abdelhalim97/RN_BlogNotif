@@ -96,7 +96,8 @@ export default function CreatePost() {
                         label.map((data)=>
                         <LabelInput key={data.id} label={data.label} pass={data.pass} 
                         value={data.value} id={data.id}
-                        onChangeText={text=>data.id===1?setTitle(text):setBody(text)} 
+                        onChangeText={text=>data.id===1?setTitle(text):setBody(text)}
+                        multiline={data.id===1?false:true}
                         ></LabelInput>)
                     }
                     {switchData.map((data)=>
@@ -104,10 +105,13 @@ export default function CreatePost() {
                     check={data.check}></CustomSwitch>
                     )}
                     <View style={{ justifyContent:"space-around",marginVertical:25,flexDirection: "row"}}>
-                        <ButtonOpacity fnc={()=>{handleTags();createPost();handleRedirectionAccueil()}}  name="Create Post"
-                        disabled={title.trim().length>0 && body.trim().length>0? false:true}
-                        >
-                            </ButtonOpacity>                        
+                        <ButtonOpacity fnc={()=>{handleTags();createPost();handleRedirectionAccueil()}}  name="Create New Post"
+                        disabled={title.trim().length>0 && body.trim().length>0
+                        &&(check ||
+                            check2||
+                            check3||
+                            check4)? false:true}>
+                        </ButtonOpacity>                        
                     </View> 
                 </View>
             </View>            

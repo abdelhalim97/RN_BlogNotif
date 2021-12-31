@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { View,StyleSheet,ScrollView, TouchableOpacity,Text } from 'react-native'
+import { View,StyleSheet,ScrollView, TouchableOpacity,Text, KeyboardAvoidingView } from 'react-native'
 import { BackGround,BarReset } from '../general'
 import { FontAwesomeIconOpacity,CustomTag,Posts} from "../components"
 import { faUser,faSignOutAlt,faPlus,faBell } from '@fortawesome/free-solid-svg-icons'
@@ -10,21 +10,23 @@ import {auth} from "../firebase"
 import { useDispatch } from 'react-redux'
 import {setUserRedux} from "../slices/CounterSlices"
 import { db } from '../firebase'
-import {collection, onSnapshot} from "firebase/firestore"
+import {collection, doc, onSnapshot} from "firebase/firestore"
 
 export default function Accueil() {
     const [posts, setPosts] = useState([])
+    const [displayEdit, setDisplayEdit] = useState(null)
     const [customTag, setCustomTag] = useState("Front-End")
     const postsCollectionRef = collection(db,"posts")
     useEffect(() => {
         onSnapshot(postsCollectionRef,(snapshot)=>
-        setPosts(snapshot.docs.map((doc)=>doc.data())))
+        setPosts(snapshot.docs.map((doc)=>({...doc?.data(),id:doc?.id}))))
     }, [])
     const dispatch = useDispatch()
     const navigation=useNavigation();
     const handleRedirectionProfil=()=>{
         navigation.navigate("Profil")
     }
+
     const logout=async ()=>{
         await signOut(auth)
         dispatch(setUserRedux(null))
@@ -77,36 +79,39 @@ export default function Accueil() {
                         <FontAwesomeIconOpacity fnc={()=>{navigation.navigate("NotifPage")}} icon={faBell}
                         style={styles.footerIcon} c="#FFF" s={32}>
                         </FontAwesomeIconOpacity>
-                        <Text>Liste des Postes</Text>
+                        <Text>Posts List</Text>
                         <FontAwesomeIconOpacity fnc={handleRedirectionProfil} icon={faUser}
                         style={styles.footerIcon} c="#FFF" s={32}>
                         </FontAwesomeIconOpacity>
                     </View>
-                    <View style={{ flex:0.08,marginTop:20 }}>
-                        <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-                            {
-                                DataTag.map((data)=>
-                                <CustomTag key={data.id} title={data.title} fnc={data.fnc}
-                                styleP={customTag===data.title?data.styleActive:data.styleP} >
-                                </CustomTag>)
-                            }
-                        </ScrollView>
-                    </View>
                     <View style={{ flex:1 }}>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        {posts.map((post)=>
-                            post.tags.includes(customTag)?<Posts key={post.uid} paragraph={post.body} email={post.email}
-                            displayName={post.displayName} img={post.img}
-                            title={post.title}></Posts>:<></>
-                        )}
-                    </ScrollView>
+                        <KeyboardAvoidingView keyboardVerticalOffset={-270} behavior={ "height"}>
+                            <ScrollView  horizontal showsHorizontalScrollIndicator={false} style={{ marginTop:10,marginBottom:5 }}>
+                                    {
+                                        DataTag.map((data)=>
+                                        <CustomTag key={data.id} title={data.title} fnc={data.fnc}
+                                        styleP={customTag===data.title?data.styleActive:data.styleP} >
+                                        </CustomTag>)
+                                    }
+                                </ScrollView>
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                {posts.map((post)=>
+                                    post.tags.includes(customTag)?
+                                    <Posts key={post.id} id={post.id}
+                                    paragraph={post.body} email={post.email}
+                                    displayName={post.displayName} img={post.img} 
+                                    title={post.title} 
+                                    displayEdit={displayEdit} setDisplayEdit={setDisplayEdit}></Posts>:
+                                    <></>
+                                )}
+                                </ScrollView>
+                        </KeyboardAvoidingView>
                     </View>
-                    
                     <View style={{ flexDirection:"row",justifyContent:"space-between",paddingTop:5}}>
                         <TouchableOpacity style={styles.createPost}
                         onPress={() => navigation.navigate("CreatePost")} activeOpacity={0.65}>                             
                             <Text style={{ color:"#FFF",padding:5 }}>
-                                <FontAwesomeIcon icon={faPlus} style={{color:"#FFF"}}/> Créer une Poste
+                                <FontAwesomeIcon icon={faPlus} style={{color:"#FFF"}}/> Create a Poste
                             </Text>
                         </TouchableOpacity>
                         <FontAwesomeIconOpacity s={32} fnc={()=>{logout()}} icon={faSignOutAlt}

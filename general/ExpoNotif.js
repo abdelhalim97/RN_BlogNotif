@@ -57,7 +57,7 @@ const onSubmit = () => {
     schedulingOptions,
   );
   
-  navigation.navigate("Accueil")
+  navigation.navigate("NotifPage")
 };
 const handleNotification = () => {
   console.warn('ok! got your notif');
@@ -81,9 +81,9 @@ const TimerNotification = () => {
     return () => listener.remove();
   }, []);};
   return (
-  <View style={{ marginTop:25 }}>
+  <View style={{ marginTop:25,alignItems:"center" }}>
     <ButtonOpacity fnc={()=>{onSubmit();createTask()}} name="créer une alerte" 
-    disabled={minTime!=props.date&&props.title.trim().length>0?false:true}
+    disabled={minTime<props.date&&props.title.trim().length>0?false:true}
     ></ButtonOpacity>
   </View>
   )
